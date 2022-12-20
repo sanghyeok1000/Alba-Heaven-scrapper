@@ -13,19 +13,20 @@ def extract_alba_jobs():
         jobs = soup.find_all("div", class_="goodsList")
         for job_section in jobs:
             job_posts = job_section.find_all("tr")
-            job_tds = job_posts.find_all("td")
-            job_td = job_tds[1]
-            for post in job_td:
+            for post in job_posts:
                 anchors = post.find_all("a")
                 anchor = anchors[0]
                 link = anchor['href']
-                title, location, company, pay = anchor.find_all("td", class_=" ")
+                title = post.find("span", class_="title")
+                location = post.find("td", class_="local")
+                company = post.find("span", class_="company")
+                pay = post.find("td", class_="pay")
                 job_data = {
-                    'link': "http://www.alba.co.kr/"
-                    'title': title,
+                    'link': "http://www.alba.co.kr/",
+                    'title': title.string,
                     'location': location.string,
                     'company': company.string,
                     'pay': pay.string
                 }
                 results.append(job_data)
-extract_alba_jobs()
+        return results
