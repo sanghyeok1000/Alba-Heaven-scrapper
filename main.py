@@ -14,6 +14,7 @@ def home():
 
 @app.route("/search")
 def search():
+    extract_alba_jobs()
     return render_template("search.html")
 
-app.run("127.0.0.1:5000")
+app.run("127.0.0.1")
