@@ -14,7 +14,11 @@ def home():
 
 @app.route("/search")
 def search():
-    extract_alba_jobs()
-    return render_template("search.html")
+    search_job = extract_alba_jobs()
+    db = search_job
+    return render_template("search.html", db=db)
 
+@app.route("/export")
+def export():
+    save_to_file(db, db)
 app.run("127.0.0.1")
