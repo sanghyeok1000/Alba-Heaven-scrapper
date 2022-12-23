@@ -15,25 +15,19 @@ def extract_alba_jobs():
         job_posts = job_section.find_all("tr")
         for post in job_posts:
             anchors = post.find_all("a")
-            except_empty_list = []
-            if anchors == []:
-                pass
-            else:
-                except_empty_list.append(anchors)
-            for anchor in except_empty_list:
-                first_anchor = anchor[0]
+            if len(anchors) != 0 :
+                first_anchor = anchors[0]
                 link = first_anchor['href']
-                location = anchor.find("td", class_="local.first")
-                title = anchor.find("span", class_="title")
-                company = anchor.find("span", class_="company")
-                pay = anchor.find("td", class_="pay")
+                title = post.find_all("span", class_="title")
+                location = post.find_all("td", class_="local")
+                company = post.find_all("span", class_="company")
+                pay = post.find_all("td", class_="pay")
                 job_data = {
                     'link': f"http://www.alba.co.kr/{link}",
-                    'title': title.string.replace(",", " "),
-                    'location': location.text.replace(",", " "),
-                    'company': company.string.replace(",", " "),
-                    'pay': pay.string.replace(",", " ")
+                    'title': title,
+                    'location': location,
+                    'company': company,
+                    'pay': pay
                 }
                 results.append(job_data)
     return results
-print(extract_alba_jobs())
