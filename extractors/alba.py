@@ -24,10 +24,10 @@ def extract_alba_jobs():
                 pay = post.find_all("td", class_="pay")
                 job_data = {
                     'link': f"http://www.alba.co.kr/{link}",
-                    'title': title,
-                    'location': location,
-                    'company': company,
-                    'pay': pay
+                    'title': title.string,
+                    'location': location.string,
+                    'company': company.string,
+                    'pay': pay.string
                 }
                 results.append(job_data)
     return results
